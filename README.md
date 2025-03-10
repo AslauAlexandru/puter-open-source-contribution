@@ -39,7 +39,8 @@ Puter Blog Post:
 https://nj.puter.site/web-os/
 
 
-## Puter Open Source Contribution: Puter-integrated ZetaOffice App
+## Puter Open Source Contribution: 
+## Puter-integrated ZetaOffice App
 Puter-integrated ZetaOffice App: https://github.com/HeyPuter/puter/issues/1148
 
 ZetaOffice in Puter
