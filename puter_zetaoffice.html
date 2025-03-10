@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZetaOffice in Puter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="toolbar">
+        <button onclick="saveDocument()">Save</button>
+        <button onclick="loadDocument()">Load</button>
+    </div>
+    <div id="editor">
+        <iframe src="https://zetaoffice.net/demo1.html" id="zetaoffice-frame"></iframe>
+    </div>
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        const frame = document.getElementById('zetaoffice-frame');
+
+        async function saveDocument() {
+            // Get document content from ZetaOffice
+            frame.contentWindow.postMessage({action: 'getContent'}, '*');
+        }
+
+        async function loadDocument() {
+            const file = await puter.selectFile();
+            const content = await puter.readFile(file.path);
+            frame.contentWindow.postMessage({action: 'setContent', content}, '*');
+        }
+
+        window.addEventListener('message', async (event) => {
+            if (event.data.action === 'contentReady') {
+                const content = event.data.content;
+                const path = await puter.showSaveDialog();
+                await puter.writeFile(path, content);
+            }
+        });
+    </script>
+</body>
+</html>
